@@ -5,6 +5,35 @@
     --danger: #ef4444; --text: #f1f5f9; --disabled: #475569;
 }
 
+/* --- Reklamveren Temaları --- */
+
+/* 1. Hafta: Coca Cola (Kırmızı - Beyaz) */
+body.theme-cocacola {
+    --primary: #F40009;    /* Klasik Coca Cola Kırmızısı */
+    --secondary: #ffffff;  /* Beyaz */
+    --accent: #000000;     /* Siyah detaylar */
+    --bg-color: #1a0000;   /* Çok koyu bordo arka plan */
+    --card-bg: #2d0000;    /* Koyu kırmızı kartlar */
+}
+
+/* 2. Hafta: Turkcell (Sarı - Lacivert) */
+body.theme-turkcell {
+    --primary: #ffcc00;    /* Turkcell Sarısı */
+    --secondary: #004d99;  /* Turkcell Mavisi */
+    --accent: #ffffff;     /* Beyaz */
+    --bg-color: #001a33;   /* Lacivert arka plan */
+    --card-bg: #002b52;    /* Koyu mavi kartlar */
+}
+
+/* 3. Hafta: Konyaspor (Yeşil - Beyaz) */
+body.theme-konyaspor {
+    --primary: #00813d;    /* Konyaspor Yeşili */
+    --secondary: #ffffff;  /* Beyaz */
+    --accent: #111111;     /* Siyah detaylar */
+    --bg-color: #002210;   /* Çok koyu yeşil arka plan */
+    --card-bg: #003a1b;    /* Yeşil kartlar */
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; touch-action: manipulation; }
 body { background-color: var(--bg-color); color: var(--text); font-family: 'Poppins', sans-serif; min-height: 100vh; padding: 20px; }
 
