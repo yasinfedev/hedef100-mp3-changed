@@ -29,10 +29,25 @@ body.theme-turkcell {
 body.theme-konyaspor {
     --primary: #00813d;    /* Konyaspor Yeşili */
     --secondary: #ffffff;  /* Beyaz */
-    --accent: #111111;     /* Siyah detaylar */
+    --accent: #ffffff;     /* Beyaz detaylar */
     --bg-color: #002210;   /* Çok koyu yeşil arka plan */
     --card-bg: #003a1b;    /* Yeşil kartlar */
 }
+
+/* 
+
+---
+
+### 3. Değişecek Alanların Özeti
+Bu yapılandırma sayesinde şu alanlar otomatik olarak markanın renklerine bürünür[cite: 1]:
+*   **Logo:** `--primary` ve `--accent` gradyanı ile markanın renklerine döner[cite: 1].
+*   **Butonlar & Skorlar:** Tüm buton renkleri ve istatistik değerleri `--primary` rengini alır[cite: 1].
+*   **Oyun Alanı:** Tıklanabilir hücreler ve son tıklanan hücre markanın vurgu renklerine (`--primary` ve `--accent`) göre parlar[cite: 1].
+*   **Alt Bilgi (Footer):** Ayırıcı çizgiler markanın ana rengine göre gradyan oluşturur[cite: 1].
+
+**İpucu:** Reklam banner'ının yanındaki boşluklara reklamverenin logosunu da `--bg-color` üzerine hafif bir opaklık vererek (`background-image` ile) yerleştirebilirsiniz.
+
+*/
 
 * { box-sizing: border-box; margin: 0; padding: 0; touch-action: manipulation; }
 body { background-color: var(--bg-color); color: var(--text); font-family: 'Poppins', sans-serif; min-height: 100vh; padding: 20px; }
