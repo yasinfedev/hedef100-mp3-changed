@@ -1,5 +1,5 @@
 /* script.js */
-document.getElementById('bgMusic').volume = 0.3;
+document.getElementById('bgMusic').volume = 0.1;
 const GRID_SIZE = 10;
 let score = 0, history = [], undoRights = 3, timer = 0, timerInterval = null, isMusicPlaying = false, audioUnlocked = false;
 const clickSfx = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-simple-game-countdown-921.mp3');
