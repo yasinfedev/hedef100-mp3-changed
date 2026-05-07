@@ -1,0 +1,79 @@
+/* style.css */
+:root {
+    --primary: #38bdf8; --secondary: #818cf8; --accent: #f472b6;
+    --bg-color: #0f172a; --card-bg: #1e293b; --success: #22c55e;
+    --danger: #ef4444; --text: #f1f5f9; --disabled: #475569;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; touch-action: manipulation; }
+body { background-color: var(--bg-color); color: var(--text); font-family: 'Poppins', sans-serif; min-height: 100vh; padding: 20px; }
+
+.app-layout { display: grid; grid-template-columns: 1fr 450px 1fr; gap: 20px; max-width: 1400px; margin: 0 auto; }
+.side-column { display: flex; flex-direction: column; align-items: center; padding-top: 60px; }
+main { display: flex; flex-direction: column; align-items: center; }
+
+.header-logo {
+    font-family: 'Orbitron', sans-serif; font-size: 2.2rem; margin-bottom: 15px;
+    background: linear-gradient(to right, var(--primary), var(--accent));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    text-transform: uppercase; letter-spacing: 3px; font-weight: 700;
+}
+
+.accordion-box { width: 100%; max-width: 450px; margin-bottom: 15px; border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 12px; overflow: hidden; }
+.acc-btn { width: 100%; background: var(--card-bg); padding: 12px; color: var(--primary); font-family: 'Orbitron'; font-size: 0.7rem; border: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+.acc-panel { max-height: 0; overflow: hidden; transition: 0.3s ease-out; background: rgba(30, 41, 59, 0.4); font-size: 0.8rem; }
+.acc-panel.open { max-height: 300px; padding: 15px; border-top: 1px solid rgba(255,255,255,0.05); }
+
+.stats-container { display: flex; gap: 15px; margin-bottom: 15px; background: var(--card-bg); padding: 10px 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); width: 100%; max-width: 450px; }
+.stat-item { text-align: center; min-width: 65px; flex: 1; }
+.stat-value { display: block; font-size: 1.2rem; font-weight: 700; color: var(--primary); }
+.stat-label { font-size: 0.65rem; text-transform: uppercase; opacity: 0.7; }
+
+.board-wrapper { position: relative; width: 100%; max-width: 450px; aspect-ratio: 1/1; margin: 0 auto; }
+#game-start-overlay { position: absolute; inset: 0; background: var(--card-bg); z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 10px; border: 2px solid var(--primary); padding: 15px; }
+#game-board { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; background: var(--card-bg); padding: 8px; border-radius: 10px; width: 100%; height: 100%; }
+.cell { aspect-ratio: 1/1; background: rgba(255,255,255,0.03); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 600; transition: 0.2s; border: 1px solid rgba(255,255,255,0.05); color: #fff; }
+.cell.clickable { background: rgba(56, 189, 248, 0.15); cursor: pointer; border-color: var(--primary); animation: pulse 1.5s infinite; }
+.cell.clicked { background: var(--secondary); }
+.cell.last-clicked { background: var(--accent); transform: scale(1.08); box-shadow: 0 0 15px var(--accent); }
+
+.controls { margin-top: 20px; display: flex; gap: 10px; width: 100%; max-width: 450px; }
+button { flex: 1; padding: 12px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.3s; font-family: 'Orbitron', sans-serif; font-size: 0.75rem; color: white; }
+.btn-undo:disabled { background: var(--disabled) !important; opacity: 0.4; cursor: not-allowed; filter: grayscale(1); }
+.sound-on { background-color: #22c55e !important; }
+.sound-off { background-color: #ef4444 !important; }
+
+.leaderboard { margin-top: 30px; width: 100%; max-width: 450px; background: rgba(30, 41, 59, 0.5); padding: 15px; border-radius: 10px; }
+table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+td { padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+#resultModal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.98); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 10px; }
+.result-card { 
+    background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%); 
+    padding: 40px 20px; border-radius: 20px; text-align: center; border: 2px solid var(--primary); 
+    width: 100%; max-width: 380px; min-height: 640px; display: flex; flex-direction: column; 
+    justify-content: space-around; color: white; position: relative; overflow: hidden;
+}
+.soft-bg-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 15rem; font-weight: 900; color: rgba(255, 255, 255, 0.03); z-index: 0; font-family: 'Orbitron'; pointer-events: none; }
+.result-content { position: relative; z-index: 1; width: 100%; }
+.result-score { font-size: 6rem; font-weight: 800; color: var(--accent); line-height: 1; margin: 20px 0; text-shadow: 0 0 20px rgba(244, 114, 182, 0.3); }
+
+.top-ad-row { grid-column: 1 / -1; display: flex; justify-content: center; margin-bottom: 20px; width: 100%; }
+.top-banner { width: 100%; max-width: 728px; border-radius: 10px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); }
+.top-banner img { width: 100%; height: auto; display: block; }
+
+@media (max-width: 900px) { .app-layout { grid-template-columns: 1fr; } .side-column { display: none; } .board-wrapper { max-width: 95vw; } }
+
+.footer-container { grid-column: 1 / -1; width: 100%; max-width: 900px; margin: 40px auto 20px auto; padding-top: 20px; text-align: center; }
+.footer-hr { border: 0; height: 1px; background-image: linear-gradient(to right, transparent, var(--primary), transparent); margin-bottom: 20px; opacity: 0.5; }
+.footer-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px 25px; margin-bottom: 20px; }
+.footer-link { color: var(--text); text-decoration: none; font-size: 0.75rem; font-weight: 500; opacity: 0.7; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+.footer-copyright { font-size: 0.65rem; opacity: 0.5; margin-top: 10px; font-family: 'Orbitron', sans-serif; }
+
+/* Dinamik Can Renkleri */
+.stat-value.life-3 { color: #22c55e; } 
+.stat-value.life-2 { color: #eab308; } 
+.stat-value.life-1 { color: #f97316; } 
+.stat-value.life-0 { color: #ef4444; }
+
+@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
