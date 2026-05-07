@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- SEO & META TAGS -->
+    <title>Hedef 100 | Strateji, Zeka ve Mantık Oyunu</title>
+    <meta name="description" content="Hedef 100 ile zihnini test et! 100 kareyi doldurmak için stratejini geliştir. Uzm. Dr. Yasin Yıldız tarafından tasarlanan beyin egzersizi ve zeka oyunu.">
+    <meta name="author" content="Uzm. Dr. Yasin Yıldız">
+    
+    <!-- FAVICON & PWA -->
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon.png">
+    <meta name="theme-color" content="#0f172a">
+    <link rel="manifest" href="manifest.json">
+
+    <!-- HARİCİ DOSYALAR -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <style>
+        /* Ek Rehber Linkleri İçin Stil */
+        .guide-links-container {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(56, 189, 248, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: left;
+            padding-left: 10px;
+        }
+        .guide-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+            opacity: 0.7;
+        }
+        .guide-link i { width: 16px; text-align: center; color: var(--accent); }
+        .guide-link:hover { opacity: 1; color: var(--accent); transform: translateX(5px); }
+    </style>
+</head>
+<body onclick="unlockAudio()">
+
+    <div class="app-layout">
+        <!-- ÜST REKLAM -->
+        <div class="top-ad-row">
+            <div class="top-banner">
+                <a href="index.html"><img src="https://acil42.com/wp-content/uploads/2026/05/ezgif-7d4aa910c31d13e5.gif" alt="Reklam"></a>
+            </div>
+        </div>
+        
+        <!-- SOL SÜTUN -->
+        <aside class="side-column">
+            <a href="index.html"><img src="https://acil42.com/wp-content/uploads/2026/05/Buraya-reklam-verebilirsiniz-kopyasi.png" alt="Reklam" style="width: 160px; height: 600px; border-radius: 10px;"></a>
+        </aside>
+
+        <!-- ANA OYUN ALANI -->
+        <main>
+            <div class="header-logo">HEDEF 100</div>
+            <div class="accordion-box">
+                <button class="acc-btn" onclick="togglePanel('howToPlay', 'icon1')">NASIL OYNANIR? <span id="icon1">▼</span></button>
+                <div id="howToPlay" class="acc-panel"><div style="padding: 15px;">• İstediğiniz kareden başlayın.<br>• Yatay/Dikeyde 3. kareye, çaprazda 2. kareye gidebilirsiniz.<br>• 100 kareyi de doldurmaya çalışın!<br>• <a href="https://www.youtube.com/watch?v=bg3I2uSVmYc" class="guide-link">
+                        <i class="fas fa-book-open"></i> VİDEOYU İZLEYİN
+                    </a></div></div>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-item"><span class="stat-value" id="scoreDisplay">0</span><span class="stat-label">SKOR</span></div>
+                <div class="stat-item"><span class="stat-value" id="timerDisplay">00:00</span><span class="stat-label">SÜRE</span></div>
+                <div class="stat-item"><span class="stat-value" id="undoDisplay">3</span><span class="stat-label">HAK</span></div>
+            </div>
+
+            <div class="board-wrapper">
+                <div id="game-start-overlay">
+                    <a href="index.html" target="_blank"><img src="https://acil42.com/wp-content/uploads/2026/05/alan-reklami-kopyasi-2.png" alt="Reklam" style="max-width: 100%; height: auto; border-radius: 5px; margin-bottom: 15px;"></a>
+                    <button onclick="startActualGame()" style="background: var(--success); width: 90%; padding: 12px; font-size: 1rem; color: white;">YENİ OYUN BAŞLAT</button>
+                </div>
+                <div id="game-board"></div>
+            </div>
+
+            <div class="controls">
+                <button id="muteBtn" class="sound-off" onclick="toggleMute(event)" style="flex:0.5;"><i id="muteIcon" class="fas fa-volume-mute"></i></button>
+                <button class="btn-undo" id="undoBtn" onclick="undoMove()" style="background: var(--success);">GERİ AL</button>
+                <button onclick="resetGame()" style="background: var(--danger);">SIFIRLA</button>
+            </div>
+
+            <!-- LİDERLİK TABLOSU VE REHBERLER -->
+            <div class="leaderboard">
+                <h3 style="font-family: Orbitron; font-size: 1rem; margin-bottom: 10px; text-align: center; color: var(--accent);">🏆 TOP 5 SKORLAR</h3>
+                <table id="leaderboardTable"><tbody id="leaderboardBody"></tbody></table>
+
+                <!-- REHBER LİNKLERİ ALANI -->
+                <div class="guide-links-container">
+                    <a href="sss-rehberi.html" class="guide-link">
+                        <i class="fas fa-brain"></i> SIKÇA SORULAN SORULAR (SSS) REHBERİ
+                    </a>
+                    <a href="baslangic-rehberi.html" class="guide-link">
+                        <i class="fas fa-book-open"></i> BAŞLANGIÇ EL KİTABI
+                    </a>
+                    <a href="strateji-rehberi.html" class="guide-link">
+                        <i class="fas fa-chess-knight"></i> STRATEJİ VE TAKTİK REHBERİ
+                    </a>
+                    <a href="teknik-degerlendirme-raporu.html" class="guide-link">
+                        <i class="fas fa-file-medical-alt"></i> TEKNİK DEĞERLENDİRME RAPORU
+                    </a>
+                </div>
+            </div>
+        </main> <!-- Main alanı burada güvenle kapanıyor -->
+
+        <!-- SAĞ SÜTUN -->
+        <aside class="side-column">
+            <a href="index.html"><img src="https://acil42.com/wp-content/uploads/2026/05/Buraya-reklam-verebilirsiniz-kopyasi-2.png" alt="Reklam" style="width: 160px; height: 600px; border-radius: 10px;"></a>
+        </aside>
+
+        <!-- FOOTER -->
+        <footer class="footer-container">
+            <hr class="footer-hr">
+            <nav class="footer-nav">
+                <a href="hakkimizda.html" class="footer-link">Hakkımızda</a>
+                <a href="nasil-oynanir.html" class="footer-link">Nasıl Oynanır?</a>
+                <a href="kullanim-sartlari.html" class="footer-link">Kullanım Şartları</a>
+                <a href="kvkk.html" class="footer-link">KVKK</a>
+                <a href="cerez-politikasi.html" class="footer-link">Çerez Politikası</a>
+                <a href="blog.html" class="footer-link">Blog</a>
+                <a href="iletisim.html" class="footer-link">İletişim</a>
+                <a href="reklam.html" class="footer-link">Reklam</a>
+            </nav>
+            <div class="footer-copyright">© 2026 HEDEF100.COM | TÜM HAKLARI SAKLIDIR.</div>
+        </footer>
+    </div>
+
+    <!-- OYUN SONU MODAL -->
+    <div id="resultModal">
+        <div class="result-card" id="captureArea">
+            <div class="soft-bg-text">100</div>
+            <div class="result-content">
+                <h2 style="font-family: Orbitron; font-size: 1.2rem; color: var(--primary);">HEDEF 100</h2>
+                <div class="result-score" id="finalScoreText">0</div>
+                <p id="funMessageText" style="font-weight: 600; color: var(--primary); margin: 15px 0;"></p>
+                <div style="font-size: 0.8rem; margin-bottom: 20px; opacity: 0.7;">
+                    Süre: <span id="finalTimeText">00:00</span> | Tarih: <span id="finalDateText"></span>
+                </div>
+            </div>
+            <div class="modal-btns" style="position: relative; z-index: 2; display: flex; gap: 10px; width: 100%; padding: 0 10px;">
+                <button style="background: var(--success); flex:1;" onclick="generateAndShare()">📱 PAYLAŞ / KAYDET</button>
+                <button style="background: var(--danger); flex:0.4;" onclick="closeModal()">KAPAT</button>
+            </div>
+        </div>
+    </div>
+
+    <audio id="bgMusic" loop src="hedef100-background-music-8bit-90sec.mp3"></audio>
+
+    <script src="script.js"></script>
+    
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js');
+        });
+      }
+    </script>
+</body>
+</html>
